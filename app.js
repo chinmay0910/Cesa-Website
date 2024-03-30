@@ -12,9 +12,6 @@ const corsConfig = {
   methods: ["GET", "POST", "PUT", "DELETE"],
 }
 
-app.options("", cors(corsConfig))
-app.use(cors(corsConfig));
-
 
 var indexRouter = require('./routes/index');
 //var userRouter = require('./routes/users');
@@ -24,6 +21,9 @@ const fileUpload = require('express-fileupload');
 
 var app = express();
 app.use(fileUpload());
+
+app.options("", cors(corsConfig))
+app.use(cors(corsConfig));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
