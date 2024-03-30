@@ -6,8 +6,13 @@ var logger = require('morgan');
 const expressSession = require('express-session');
 const passport = require('passport');
 const cors = require('cors');
+const corsConfig = {
+  origin: "*",
+  credential: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+}
 
-app.use(cors());
+app.use(cors(corsConfig));
 
 
 var indexRouter = require('./routes/index');
