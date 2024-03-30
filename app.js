@@ -12,6 +12,7 @@ const corsConfig = {
   methods: ["GET", "POST", "PUT", "DELETE"],
 }
 
+app.options("", cors(corsConfig))
 app.use(cors(corsConfig));
 
 
