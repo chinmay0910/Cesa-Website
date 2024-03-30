@@ -3,7 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const expressSession = require('express-session');
+// const expressSession = require('express-session');
+const session = require('cookie-session');
 const passport = require('passport');
 const cors = require('cors');
 const corsConfig = {
@@ -29,10 +30,14 @@ app.use(cors(corsConfig));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(expressSession({
-  resave : false,
-  saveUninitialized : false,
-  secret : "giteesh-gay"
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  secret: "giteesh-gay",
+  maxAge: 1000 * 60 * 15,
+  cookie: {
+    secure: true
+  }
 }))
 
 app.use(passport.initialize());
@@ -50,12 +55,12 @@ app.use('/', indexRouter);
 //app.use('/u', userRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
